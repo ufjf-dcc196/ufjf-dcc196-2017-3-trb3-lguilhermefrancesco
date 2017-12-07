@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TasksOnline</string>
+
+    <string-array name="estados">
+        <item>A Fazer</item>
+        <item>Em Execução</item>
+        <item>Bloqueada</item>
+        <item>Concluída</item>
+    </string-array>
 </resources>

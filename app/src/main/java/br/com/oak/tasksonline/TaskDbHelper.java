@@ -30,8 +30,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
             sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_TAREFAS);
-            sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_TAGS);
-            sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_COMPOSICAO);
+            //sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_TAGS);
+            //sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_COMPOSICAO);
 
             Log.e(Tag, "Tabelas Criadas Com Sucesso");
         }catch (Exception e){
@@ -44,8 +44,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAREFAS);
-        sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAGS);
-        sqLiteDatabase.execSQL(TaskContract.SQL_DROP_COMPOSOCAO);
+        //sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAGS);
+        //sqLiteDatabase.execSQL(TaskContract.SQL_DROP_COMPOSICAO);
         onCreate(sqLiteDatabase);
 
     }
@@ -57,14 +57,14 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     public void onDrop(SQLiteDatabase sqLiteDatabase){
         sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAREFAS);
-        sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAGS);
-        sqLiteDatabase.execSQL(TaskContract.SQL_DROP_COMPOSOCAO);
+        //sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAGS);
+        //sqLiteDatabase.execSQL(TaskContract.SQL_DROP_COMPOSICAO);
     }
 
     public void DropAll(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAREFAS);
-        sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAGS);
-        sqLiteDatabase.execSQL(TaskContract.SQL_DROP_COMPOSOCAO);
+        //sqLiteDatabase.execSQL(TaskContract.SQL_DROP_TAGS);
+        //sqLiteDatabase.execSQL(TaskContract.SQL_DROP_COMPOSICAO);
         onCreate(sqLiteDatabase);
     }
 }

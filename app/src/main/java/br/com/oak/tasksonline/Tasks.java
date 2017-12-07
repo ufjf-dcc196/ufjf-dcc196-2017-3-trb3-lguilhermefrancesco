@@ -23,9 +23,10 @@ public class Tasks extends CursorAdapter {
         tarefasDBHelper = TaskDbHelper.getInstance(context);
     }
 
+
     @Override //layout de visualizaçao do adapter
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.layout_tarefa,viewGroup, false);
+        return LayoutInflater.from(context).inflate(R.layout.activity_cad_tarefa,viewGroup, false);
     }
 
     @Override
@@ -33,9 +34,9 @@ public class Tasks extends CursorAdapter {
         TextView txtTituloTarefa = (TextView) view.findViewById(R.id.txtTarefas);
         String titulo = cursor.getString(cursor.getColumnIndexOrThrow(TaskContract.Tarefa.COLUMN_NAME_TITULO));
         txtTituloTarefa.setText( "   " + titulo);
-        TextView txtStatus = (TextView) view.findViewById(R.id.txtStatusTarefa);
+
         String status = cursor.getString(cursor.getColumnIndexOrThrow(TaskContract.Tarefa.COLUMN_NAME_STATUS));
-        txtStatus.setText("Status: " + status);
+
     }
 
     public TaskDbHelper getTarefasDBHelper() {

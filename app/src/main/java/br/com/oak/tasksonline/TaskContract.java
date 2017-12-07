@@ -23,6 +23,7 @@ public final class TaskContract {
 
     public TaskContract() {
     }
+
     public static final class Tarefa implements BaseColumns {
         public static final String TABLE_NAME = "tarefas";
         public static final String COLUMN_NAME_TITULO = "titulo";
@@ -31,19 +32,15 @@ public final class TaskContract {
         public static final String COLUMN_NAME_STATUS = "status";
     }
 
-    //Vai ser assim as tags???//
-    /*
     public static final class Tags implements BaseColumns {
         public static final String TABLE_NAME = "tags";
         public static final String COLUMN_NAME_TAG = "tag";
     }
-    */
 
-    /*
     public static final class Composicao implements BaseColumns{
         public static final String TABLE_NAME = "composicao";
         public static final String COLUMN_NAME_ID_TAG = "id_tag";
         public static final String COLUMN_NAME_ID_TAREFA = "id_tarefa";
     }
-    */
+
 }

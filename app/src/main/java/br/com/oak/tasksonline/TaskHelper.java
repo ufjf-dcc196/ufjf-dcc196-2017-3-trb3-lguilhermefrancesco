@@ -32,7 +32,6 @@ public class TaskHelper {
 
     public void initTasks(Context baseContext) {
         tasks = new Tasks(baseContext,null);
-
     }
 
     public String[] getStatusList() {
