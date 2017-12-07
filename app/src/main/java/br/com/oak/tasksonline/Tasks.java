@@ -24,7 +24,7 @@ public class Tasks extends CursorAdapter {
     }
 
 
-    @Override //layout de visualizaçao do adapter
+    @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.activity_cad_tarefa,viewGroup, false);
     }

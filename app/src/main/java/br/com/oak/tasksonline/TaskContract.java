@@ -19,7 +19,22 @@ public final class TaskContract {
             Tarefa.COLUMN_NAME_STATUS + TEXT_TYPE +
             ")";
 
+    public static final String SQL_CREATE_TAGS = "CREATE TABLE " + Tags.TABLE_NAME + " (" +
+            Tags._ID + INT_TYPE +" PRIMARY KEY AUTOINCREMENT" + SEP +
+            Tags.COLUMN_NAME_TAG + TEXT_TYPE +
+            ")";
+
+    public static final String SQL_CREATE_COMPOSICAO = "CREATE TABLE " + Composicao.TABLE_NAME + " (" +
+            Composicao._ID + INT_TYPE +" PRIMARY KEY AUTOINCREMENT" + SEP +
+            Composicao.COLUMN_NAME_ID_TAG + INT_TYPE + SEP +
+            Composicao.COLUMN_NAME_ID_TAREFA + INT_TYPE +
+            ")";
+
     public static final String SQL_DROP_TAREFAS = "DROP TABLE IF EXISTS " + Tarefa.TABLE_NAME;
+
+    public static final String SQL_DROP_TAGS = "DROP TABLE IF EXISTS " + Tags.TABLE_NAME;
+
+    public static final String SQL_DROP_COMPOSICAO = "DROP TABLE IF EXISTS " + Composicao.TABLE_NAME;
 
     public TaskContract() {
     }
