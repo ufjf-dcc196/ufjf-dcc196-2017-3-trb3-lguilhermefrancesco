@@ -12,13 +12,13 @@ import android.widget.TextView;
  * Created by Franc on 05/12/2017.
  */
 
-public class Tasks extends CursorAdapter {
+public class TasksCursor extends CursorAdapter {
 
     private TaskDbHelper tarefasDBHelper;
     private static String Tag = "Task Adapter";
 
 
-    public Tasks(Context context, Cursor c) {
+    public TasksCursor(Context context, Cursor c) {
         super(context, c, 0);
         tarefasDBHelper = TaskDbHelper.getInstance(context);
     }
@@ -26,16 +26,23 @@ public class Tasks extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.activity_cad_tarefa,viewGroup, false);
+        return LayoutInflater.from(context).inflate(R.layout.layout_list_tarefas,viewGroup, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView txtTituloTarefa = (TextView) view.findViewById(R.id.txtTarefas);
+        TextView lblTarefa  = (TextView) view.findViewById(R.id.lblTarefa);
         String titulo = cursor.getString(cursor.getColumnIndexOrThrow(TaskContract.Tarefa.COLUMN_NAME_TITULO));
-        txtTituloTarefa.setText( "   " + titulo);
+        lblTarefa.setText(titulo);
 
+
+        TextView lblEstado  = (TextView) view.findViewById(R.id.lblEstado);
         String status = cursor.getString(cursor.getColumnIndexOrThrow(TaskContract.Tarefa.COLUMN_NAME_STATUS));
+        lblEstado.setText(status);
+
+        TextView lblDificuldade  = (TextView) view.findViewById(R.id.lblDificuldade);
+        Integer dificuldade = cursor.getInt(cursor.getColumnIndexOrThrow(TaskContract.Tarefa.COLUMN_NAME_DIFICULDADE));
+        lblDificuldade.setText("Dificuldade: " + dificuldade);
 
     }
 

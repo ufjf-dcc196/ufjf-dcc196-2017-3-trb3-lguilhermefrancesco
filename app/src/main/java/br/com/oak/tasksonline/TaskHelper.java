@@ -5,10 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Franc on 05/12/2017.
@@ -18,8 +14,8 @@ public class TaskHelper {
 
     private static TaskHelper instance = null;
     private static String Tag = "TaskHelper";
-    Tasks tasks = null;
-    private String[] statusList = {"Em espera", "Processando" , "Parada",  "Finalizada" };
+    TasksCursor tasksCursor = null;
+    private String[] statusList = {"A fazer", "Em Execução" , "Bloqueada",  "Concluída" };
     private String[] nivelList = {"1","2","3","4","5"};
 
 
@@ -31,7 +27,8 @@ public class TaskHelper {
     }
 
     public void initTasks(Context baseContext) {
-        tasks = new Tasks(baseContext,null);
+        tasksCursor = new TasksCursor(baseContext,null);
+        PushTask();
     }
 
     public String[] getStatusList() {
@@ -50,17 +47,17 @@ public class TaskHelper {
         this.nivelList = nivelList;
     }
 
-    public Tasks getTasks() {
-        return tasks;
+    public TasksCursor getTasksCursor() {
+        return tasksCursor;
     }
 
-    public void setTasks(Tasks tasks) {
-        this.tasks = tasks;
+    public void setTasksCursor(TasksCursor tasksCursor) {
+        this.tasksCursor = tasksCursor;
     }
 
     public void PushTask() {
         try {
-            SQLiteDatabase db = getTasks().getTarefasDBHelper().getReadableDatabase();
+            SQLiteDatabase db = getTasksCursor().getTarefasDBHelper().getReadableDatabase();
             String[] visao = {
                     TaskContract.Tarefa._ID,
                     TaskContract.Tarefa.COLUMN_NAME_TITULO,
@@ -69,7 +66,7 @@ public class TaskHelper {
                     TaskContract.Tarefa.COLUMN_NAME_STATUS
             };
             Cursor c = db.query(TaskContract.Tarefa.TABLE_NAME, visao, null, null, null, null, TaskContract.Tarefa.COLUMN_NAME_STATUS);
-            tasks.changeCursor(c);
+            tasksCursor.changeCursor(c);
         } catch (Exception e) {
             Log.e(Tag, "M-pushTask");
             Log.e(Tag, e.getLocalizedMessage());
@@ -79,7 +76,7 @@ public class TaskHelper {
 
     public long AddNovaTask(Task novaTask) {
         try {
-            SQLiteDatabase db = getTasks().getTarefasDBHelper().getReadableDatabase();
+            SQLiteDatabase db = getTasksCursor().getTarefasDBHelper().getReadableDatabase();
             ContentValues dataToInsert = new ContentValues();
             dataToInsert.put(TaskContract.Tarefa.COLUMN_NAME_TITULO, novaTask.getTitulo());
             dataToInsert.put(TaskContract.Tarefa.COLUMN_NAME_DESCRICAO, novaTask.getDescricao());
@@ -98,7 +95,7 @@ public class TaskHelper {
 
     public Task SearchForTask(int id_task) {
         try {
-            SQLiteDatabase db = getTasks().getTarefasDBHelper().getReadableDatabase();
+            SQLiteDatabase db = getTasksCursor().getTarefasDBHelper().getReadableDatabase();
             Task novaTask = new Task();
             String[] visao = {
                     TaskContract.Tarefa._ID,
@@ -129,7 +126,7 @@ public class TaskHelper {
 
     public void DeleteTask(Task myTask) {
         try {
-            SQLiteDatabase db = getTasks().getTarefasDBHelper().getReadableDatabase();
+            SQLiteDatabase db = getTasksCursor().getTarefasDBHelper().getReadableDatabase();
             String where = TaskContract.Tarefa._ID + " = ? ";
             String[] arg = {String.valueOf(myTask.getId())};
             db.delete(TaskContract.Tarefa.TABLE_NAME,where,arg);
@@ -142,7 +139,7 @@ public class TaskHelper {
 
     public void UpdateTask(Task myTask) {
         try {
-            SQLiteDatabase db = getTasks().getTarefasDBHelper().getReadableDatabase();
+            SQLiteDatabase db = getTasksCursor().getTarefasDBHelper().getReadableDatabase();
             ContentValues dataToInsert = new ContentValues();
             dataToInsert.put(TaskContract.Tarefa.COLUMN_NAME_TITULO, myTask.getTitulo());
             dataToInsert.put(TaskContract.Tarefa.COLUMN_NAME_DESCRICAO, myTask.getDescricao());
@@ -160,7 +157,7 @@ public class TaskHelper {
 
     public void CriaComposicaoDeTags(long id_task, long id_tag) {
         try {
-            SQLiteDatabase db = getTasks().getTarefasDBHelper().getReadableDatabase();
+            SQLiteDatabase db = getTasksCursor().getTarefasDBHelper().getReadableDatabase();
             ContentValues dataToInsert = new ContentValues();
             dataToInsert.put(TaskContract.Composicao.COLUMN_NAME_ID_TAG, id_tag);
             dataToInsert.put(TaskContract.Composicao.COLUMN_NAME_ID_TAREFA, id_task);
