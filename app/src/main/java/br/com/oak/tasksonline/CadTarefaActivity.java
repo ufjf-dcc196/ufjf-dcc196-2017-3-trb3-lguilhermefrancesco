@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class CadTarefaActivity extends AppCompatActivity {
 
     private int idTarefa;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +21,36 @@ public class CadTarefaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cad_tarefa);
 
         Intent i = getIntent();
-        idTarefa = i.getIntExtra("id",0);
+        Bundle extras = getIntent().getExtras();
+        idTarefa = (int)i.getLongExtra("idTarefa",0);
 
-        if
+        final TaskHelper db = TaskHelper.getInstance();
+
+        if(idTarefa != 0)
+        {
+
+            task = db.SearchForTask(idTarefa);
+
+            EditText txtTitulo = (EditText)findViewById(R.id.txtTitulo);
+            txtTitulo.setText(task.getTitulo());
+
+            EditText txtDescricao = (EditText)findViewById(R.id.txtDescricao);
+            txtDescricao.setText(task.getDescricao());
+
+            SeekBar skDificuldade = (SeekBar)findViewById(R.id.skDificuldade);
+            skDificuldade.setProgress(task.getNivel() - 1);
+
+            String[] estados = getResources().getStringArray(R.array.estados);
+
+            for(int j = 0; j < estados.length; j++)
+            {
+                if(estados[j] == task.getStatus())
+                {
+                    Spinner spEstado = (Spinner)findViewById(R.id.spEstado);
+                    spEstado.setSelection(j);
+                }
+            }
+        }
 
         Button btnCancelar = (Button)findViewById(R.id.btnCancelar);
 
@@ -53,10 +81,30 @@ public class CadTarefaActivity extends AppCompatActivity {
                 tarefa.setStatus(spEstado.getSelectedItem().toString());
 
                 TaskHelper db = TaskHelper.getInstance();
-                db.AddNovaTask(tarefa);
+
+                if(idTarefa == 0)
+                    db.AddNovaTask(tarefa);
+                else
+                {
+                    tarefa.setId(idTarefa);
+                    db.UpdateTask(tarefa);
+                }
 
                 Toast.makeText(CadTarefaActivity.this, "A tarefa foi salva com sucesso.", Toast.LENGTH_SHORT).show();
 
+                finish();
+            }
+        });
+
+        Button btnDelete = (Button)findViewById(R.id.btnDelete);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(idTarefa != 0)
+                {
+                    db.DeleteTask(task);
+                }
                 finish();
             }
         });

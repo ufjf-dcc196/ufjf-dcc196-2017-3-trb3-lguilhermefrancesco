@@ -130,6 +130,7 @@ public class TaskHelper {
             String where = TaskContract.Tarefa._ID + " = ? ";
             String[] arg = {String.valueOf(myTask.getId())};
             db.delete(TaskContract.Tarefa.TABLE_NAME,where,arg);
+            PushTask();
         } catch (Exception e) {
             Log.e(Tag, "M-DeleteTask");
             Log.e(Tag, e.getLocalizedMessage());
@@ -148,6 +149,7 @@ public class TaskHelper {
             String where = TaskContract.Tarefa._ID + " = ? ";
             String[] arg = {String.valueOf(myTask.getId())};
             db.update(TaskContract.Tarefa.TABLE_NAME,dataToInsert,where,arg);
+            PushTask();
         } catch (Exception e) {
             Log.e(Tag, "M-UpdateTask");
             Log.e(Tag, e.getLocalizedMessage());

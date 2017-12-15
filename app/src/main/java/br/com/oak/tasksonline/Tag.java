@@ -25,14 +25,15 @@ public class Tag extends CursorAdapter{
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.layout_tags,null, false);
+        return null;
+        // /return LayoutInflater.from(context).inflate(R.layout.layout_tags,null, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView txtTag = (TextView) view.findViewById(R.id.txtTag);
-        String tag = cursor.getString(cursor.getColumnIndexOrThrow(TaskContract.Tags.COLUMN_NAME_TAG));
-        txtTag.setText("tag:" + tag);
+        //TextView txtTag = (TextView) view.findViewById(R.id.txtTag);
+        //String tag = cursor.getString(cursor.getColumnIndexOrThrow(TaskContract.Tags.COLUMN_NAME_TAG));
+        //txtTag.setText("tag:" + tag);
     }
 
     public TaskDbHelper getTarefasDBHelper() {
